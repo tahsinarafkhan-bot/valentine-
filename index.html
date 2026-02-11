@@ -48,8 +48,9 @@ button{
 #no{
   background:white;
   color:#ff4d6d;
-  position:relative;
-  transition:all 0.25s ease;
+  position:fixed;
+  transition:top 0.15s ease,left 0.15s ease;
+  z-index:10;
 }
 
 .music{
@@ -101,8 +102,53 @@ No pressure. I respect you either way.
   <source src="https://files.catbox.moe/3b0w5k.mp3" type="audio/mpeg">
 </audio>
 
-<script>
+<<script>
 const noBtn = document.getElementById("no");
+
+/* make NO impossible */
+function escape(){
+  const padding = 20;
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+/* desktop + mobile */
+noBtn.addEventListener("mouseover", escape);
+noBtn.addEventListener("mousedown", escape);
+noBtn.addEventListener("touchstart", escape);
+noBtn.addEventListener("touchmove", escape);
+
+/* YES click */
+function yes(){
+  document.body.innerHTML = `
+    <h1>Thank you, Oishi 🤍</h1>
+    <p>
+    This doesn’t mean promises.<br>
+    Just honesty, respect,<br>
+    and seeing where life goes.
+    </p>
+  `;
+}
+
+/* floating hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(14+Math.random()*20)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},400);
+
+/* music */
+function playMusic(){
+  document.getElementById("song").play();
+}
+</script>
 
 /* tricky NO */
 noBtn.addEventListener("mouseover", moveNo);
