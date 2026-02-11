@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Oishi 🤍</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  text-align:center;
+  overflow:hidden;
+  color:white;
+}
+
+h1{margin-bottom:10px;}
+h2{margin:15px 0;}
+
+p{max-width:320px;}
+
+.btns{
+  display:flex;
+  gap:25px;
+  margin:25px 0;
+  position:relative;
+}
+
+button{
+  padding:14px 30px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+}
+
+#yes{
+  background:#ff4d6d;
+  color:white;
+}
+
+#no{
+  background:white;
+  color:#ff4d6d;
+  position:relative;
+  transition:all 0.25s ease;
+}
+
+.music{
+  margin-top:10px;
+  background:rgba(255,255,255,0.2);
+  color:white;
+  font-size:14px;
+}
+
+/* floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:float 6s linear infinite;
+  opacity:0.7;
+}
+
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(-110vh);}
+}
+</style>
+</head>
+
+<body>
+
+<h1>Oishi 🤍</h1>
+
+<p>
+I know you already know how I feel.<br>
+This is just me being honest, one last time.
+</p>
+
+<h2>Would you like to give us a chance?</h2>
+
+<div class="btns">
+  <button id="yes" onclick="yes()">Yes</button>
+  <button id="no">No</button>
+</div>
+
+<p style="font-size:14px;opacity:0.85;">
+No pressure. I respect you either way.
+</p>
+
+<button class="music" onclick="playMusic()">🎵 Tap for music</button>
+
+<audio id="song">
+  <source src="https://files.catbox.moe/3b0w5k.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const noBtn = document.getElementById("no");
+
+/* tricky NO */
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+function moveNo(){
+  const x = (Math.random()*120)-60;
+  const y = (Math.random()*80)-40;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+/* YES click */
+function yes(){
+  document.body.innerHTML=`
+    <h1>Thank you, Oishi 🤍</h1>
+    <p>
+    This doesn’t mean promises.<br>
+    Just honesty, respect,<br>
+    and seeing where life goes.
+    </p>
+  `;
+}
+
+/* if NO somehow clicked */
+noBtn.onclick = () => {
+  document.body.innerHTML=`
+    <h1>Thank you for being honest 🤍</h1>
+    <p>
+    I truly respect your feelings.<br>
+    I just wanted you to know mine.
+    </p>
+  `;
+};
+
+/* floating hearts generator */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(14+Math.random()*20)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},400);
+
+/* music */
+function playMusic(){
+  document.getElementById("song").play();
+}
+</script>
+
+</body>
+</html>
